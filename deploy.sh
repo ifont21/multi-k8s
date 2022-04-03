@@ -1,6 +1,6 @@
 docker build -t dockerifont21/multi-client:latest -t dockerifont21/multi-client:$SHA -f ./client/Dockerfile ./client
-docker build -t dockerifont21/multi-server:latest -t dockerifont21/multi-server:$SHA -f ./client/Dockerfile ./server
-docker build -t dockerifont21/multi-worker:latest -t dockerifont21/multi-worker:$SHA -f ./client/Dockerfile ./worker
+docker build -t dockerifont21/multi-server:latest -t dockerifont21/multi-server:$SHA -f ./server/Dockerfile ./server
+docker build -t dockerifont21/multi-worker:latest -t dockerifont21/multi-worker:$SHA -f ./worker/Dockerfile ./worker
 
 docker push dockerifont21/multi-client:latest
 docker push dockerifont21/multi-server:latest
