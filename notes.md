@@ -48,3 +48,12 @@ Securely stores a piece of information in the cluster, such as a database passwo
 After installing **ingress-nginx** if you get an error trying to add the addons to the ingress you can run this
 
 `kubectl delete job nginx-admission-create -n ingress-nginx`
+
+---
+
+## Helm
+
+Helm is a program that we can use to administer third parties software inside our K8s cluster
+
+- Helm Client
+- Tiller Server 
