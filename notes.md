@@ -11,9 +11,13 @@
 
 ## Kubernetes
 
+### Pods
+
+Is a group of containers with a common purpose
+
 ### Deployments
 
-Deployments is a type of controller
+Maintains a set of identical pods, ensuring that they have the correct config and that the right number exists. Deployments is a type of controller
 
 ---
 
