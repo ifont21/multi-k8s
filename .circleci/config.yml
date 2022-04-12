@@ -9,6 +9,9 @@ jobs:
       - run:
           name: Build Docker Image
           command: docker build -t dockerifont21/react-test -f ./client/Dockerfile.dev ./client
+      - run:
+          name: Test App
+          command: docker run -e CI=true dockerifont21/react-test npm test
 workflows:
   Pipeline:
     jobs:
