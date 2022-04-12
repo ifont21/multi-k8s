@@ -1,18 +1,14 @@
 version: 2.1
 jobs:
   Run-Test:
-    docker:
-      - image: cimg/base:2021.04
+    machine:
+      image: ubuntu-2004:202010-01
+      docker_layer_caching: true
     steps:
       - checkout
       - run:
           name: Build Docker Image
-          command: |
-            docker build -t dockerifont21/react-test -f ./client/Dockerfile.dev ./client
-      - run:
-          name: Run Tests
-          command: |
-            docker run -e CI=true dockerifont21/react-test npm run test
+          command: docker build -t dockerifont21/react-test -f ./client/Dockerfile.dev ./client
 workflows:
   Pipeline:
     jobs:
