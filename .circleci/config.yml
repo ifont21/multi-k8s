@@ -20,6 +20,7 @@ jobs:
       - run:
           name: Setting up GCloud
           command: |
+            echo $KEY
             openssl aes-256-cbc -d -in service-account.enc -out service-account.json -k $KEY
             ls -la
 workflows:
