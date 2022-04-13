@@ -12,7 +12,18 @@ jobs:
       - run:
           name: Test App
           command: docker run -e CI=true dockerifont21/react-test npm test
+  Deploy:
+    machine:
+      image: ubuntu-2004:202010-01
+    steps:
+      - checkout
+      - run:
+          name: Setting up GCloud
+          command: |
+            openssl aes-256-cbc -d -in service-account.enc -out service-account.json -k $KEY
+            ls -la
 workflows:
   Pipeline:
     jobs:
       - Run-Test
+      - Deploy
