@@ -21,7 +21,9 @@ jobs:
           name: Setting up GCloud
           command: |
             openssl aes-256-cbc -d -md sha256 -in service-account.enc -out service-account.json -pass pass:$CIRCLECI_ENC_VAR_OPENSSL_PASS
-            ls -la
+            curl https://sdk.cloud.google.com | bash > /dev/null
+            source $HOME/google-cloud-sdk/path.bash.inc
+            gcloud components update kubectl
 workflows:
   Pipeline:
     jobs:
