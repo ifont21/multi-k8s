@@ -29,6 +29,7 @@ jobs:
       - run:
           name: Deploy K8s
           command: |
+            SHA=$(git rev-parse HEAD)
             docker build -t dockerifont21/multi-client:latest -f ./client/Dockerfile ./client
             docker build -t dockerifont21/multi-client:$SHA -f ./client/Dockerfile ./client
             docker build -t dockerifont21/multi-server:latest -f ./server/Dockerfile ./server
