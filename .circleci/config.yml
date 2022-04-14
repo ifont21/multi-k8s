@@ -21,8 +21,6 @@ jobs:
           name: Setting up GCloud
           command: |
             openssl aes-256-cbc -d -md sha256 -in service-account.enc -out service-account.json -pass pass:$CIRCLECI_ENC_VAR_OPENSSL_PASS
-            curl https://sdk.cloud.google.com | bash > /dev/null;
-            source $HOME/google-cloud-sdk/path.bash.inc
             gcloud components update kubectl
             gcloud auth activate-service-account --key-file service-account.json
             gcloud config set project my-multi-k8
