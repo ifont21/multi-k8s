@@ -26,6 +26,7 @@ jobs:
             gcloud config set project my-multi-k8
             gcloud config set compute/zone europe-west1-b
             gcloud container clusters get-credentials multi-k8-cluster
+            echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
       - run:
           name: Deploy K8s
           command: |
