@@ -1,5 +1,5 @@
 apiVersion: cert-manager.io/v1
-Kind: Certificate
+kind: Certificate
 metadata:
   name: ifontcode-dev-com-tls
 spec:
