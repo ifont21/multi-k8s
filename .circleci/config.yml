@@ -1,0 +1,59 @@
+version: 2.1
+jobs:
+  Run-Test:
+    machine:
+      image: ubuntu-2004:202010-01
+      docker_layer_caching: true
+    steps:
+      - checkout
+      - run:
+          name: Build Docker Image
+          command: docker build -t dockerifont21/react-test -f ./client/Dockerfile.dev ./client
+      - run:
+          name: Test App
+          command: docker run -e CI=true dockerifont21/react-test npm test
+  Deploy:
+    machine:
+      image: ubuntu-2004:202010-01
+    steps:
+      - checkout
+      - run:
+          name: Setting up GCloud
+          command: |
+            openssl aes-256-cbc -d -md sha256 -in service-account.enc -out service-account.json -pass pass:$CIRCLECI_ENC_VAR_OPENSSL_PASS
+            gcloud components update kubectl
+            gcloud auth activate-service-account --key-file service-account.json
+            gcloud config set project my-multi-k8
+            gcloud config set compute/zone europe-west1-b
+            gcloud container clusters get-credentials multi-k8-cluster
+            echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+      - run:
+          name: Deploy K8s
+          command: |
+            SHA=$(git rev-parse HEAD)
+            docker build -t dockerifont21/multi-client:latest -f ./client/Dockerfile ./client
+            docker build -t dockerifont21/multi-client:$SHA -f ./client/Dockerfile ./client
+            docker build -t dockerifont21/multi-server:latest -f ./server/Dockerfile ./server
+            docker build -t dockerifont21/multi-server:$SHA -f ./server/Dockerfile ./server
+            docker build -t dockerifont21/multi-worker:latest -f ./worker/Dockerfile ./worker
+            docker build -t dockerifont21/multi-worker:$SHA -f ./worker/Dockerfile ./worker
+            docker push dockerifont21/multi-client:latest
+            docker push dockerifont21/multi-server:latest
+            docker push dockerifont21/multi-worker:latest
+            docker push dockerifont21/multi-client:$SHA
+            docker push dockerifont21/multi-server:$SHA
+            docker push dockerifont21/multi-worker:$SHA
+            kubectl apply -f k8s
+            kubectl set image deployments/client-deployment client=dockerifont21/multi-client:$SHA
+            kubectl set image deployments/server-deployment server=dockerifont21/multi-server:$SHA
+            kubectl set image deployments/worker-deployment worker=dockerifont21/multi-worker:$SHA
+workflows:
+  Pipeline:
+    jobs:
+      - Run-Test
+      - Deploy:
+          requires:
+            - Run-Test 
+          filters:
+            branches:
+              only: master
