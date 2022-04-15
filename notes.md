@@ -71,7 +71,7 @@ Helm is a program that we can use to administer third parties software inside ou
 - `helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx`
 - `helm install my-release ingress-nginx/ingress-nginx`
 
-### Install Cert Manager
+### Add HTTPS configuration and Install Cert Manager
 
 1. Add the Jetstack Helm repository
    `helm repo add jetstack https://charts.jetstack.io`

@@ -11,11 +11,11 @@ metadata:
 spec:
   tls:
     - hosts:
-        - ifontcode.dev.com
-        - www.ifontcode.dev.com
-      secretName: ifontcode-dev-com
+        - ifontcode.dev
+        - www.ifontcode.dev
+      secretName: ifontcode-dev
   rules:
-    - host: ifontcode.dev.com
+    - host: ifontcode.dev
       http:
         paths:
           - path: /?(.*)
@@ -32,7 +32,7 @@ spec:
                 name: server-cluster-ip-service
                 port:
                   number: 5000
-    - host: www.ifontcode.dev.com
+    - host: www.ifontcode.dev
       http:
         paths:
           - path: /?(.*)
