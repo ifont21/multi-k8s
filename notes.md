@@ -73,24 +73,22 @@ Helm is a program that we can use to administer third parties software inside ou
 
 ### Install Cert Manager
 
-1. Create a namespace `cert-manager`
-   `kubectl create namespace cert-manager`
-2. Add the Jetstack Helm repository
+1. Add the Jetstack Helm repository
    `helm repo add jetstack https://charts.jetstack.io`
-3. Update your local Helm chart repository cache
+2. Update your local Helm chart repository cache
    `helm repo update`
-4. Install the cert-manager Helm Chart:
+3. Install the cert-manager Helm Chart:
 
 
    ```sh
 
    helm install \
-     cert-manager jetstack/cert-manager \
-     --namespace cert-manager \
-     --create-namespace \
-     --version v1.8.0 \
+    cert-manager jetstack/cert-manager \
+    --namespace cert-manager \
+    --create-namespace \
+    --version v1.8.0 \
 
    ```
 
-5. Install the CRDs
+4. Install the CRDs
    `kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.2.0/cert-manager.crds.yaml`
