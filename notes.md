@@ -87,7 +87,7 @@ Helm is a program that we can use to administer third parties software inside ou
     --namespace cert-manager \
     --create-namespace \
     --version v1.8.0 \
-
+    --set installCRDs=true
    ```
 
 4. Install the CRDs
