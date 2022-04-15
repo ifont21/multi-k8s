@@ -54,3 +54,6 @@ workflows:
       - Deploy:
           requires:
             - Run-Test 
+          filters:
+            branches:
+              only: master
