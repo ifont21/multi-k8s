@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+Kind: Certificate
+metadata:
+  name: ifontcode-dev-com-tls
+spec:
+  secretName: ifontcode-dev-com
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: ifontcode.dev.com
+  dnsNames:
+    - ifontcode.dev.com
+    - www.ifontcode.dev.com
